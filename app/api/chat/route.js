@@ -31,11 +31,14 @@ export async function POST(request) {
         for await (const [mode, chunk] of events) {
           if (mode === "messages") {
             const [msg] = chunk;
+            if (msg?._getType?.() === "tool") continue;
             const token = textOf(msg);
             if (token) send({ token });
           } else if (mode === "updates") {
-            if (chunk.answer) send({ route: "rag" });
-            if (chunk.webSearch) send({ route: "web", sources: chunk.webSearch.sources || [] });
+            const update = chunk.answer || chunk.agent;
+            const last = update?.messages?.[update.messages.length - 1];
+            const route = last?.additional_kwargs?.route;
+            if (route) send({ route, sources: last.additional_kwargs.sources || [] });
           }
         }
       } catch (err) {
