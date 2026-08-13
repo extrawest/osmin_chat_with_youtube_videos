@@ -106,11 +106,9 @@ npm start       # run the build
 npm run lint    # eslint
 ```
 
-### Test video
+### Demo
 
-Try `https://www.youtube.com/watch?v=U9mJuUkhUzk` — ask for a summary, the main
-points or the speaker, then ask something off-topic (e.g. the weather) to see the
-web-search fallback with sources.
+https://www.youtube.com/watch?v=U9mJuUkhUzk
 
 ## Deployment
 
