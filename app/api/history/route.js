@@ -10,15 +10,19 @@ export async function GET(request) {
   try {
     const snapshot = await appGraph.getState({ configurable: { thread_id: threadId } });
     const values = snapshot?.values || {};
-    const messages = (values.messages || []).map((m) => {
-      const isUser = m._getType?.() === "human" || m.role === "user";
-      return {
-        role: isUser ? "user" : "assistant",
+    const messages = (values.messages || [])
+      .filter((m) => {
+        const type = m._getType?.();
+        if (type === "human") return true;
+        if (type === "ai") return !m.tool_calls?.length;
+        return false;
+      })
+      .map((m) => ({
+        role: m._getType?.() === "human" ? "user" : "assistant",
         content: textOf(m),
         route: m.additional_kwargs?.route ?? null,
         sources: m.additional_kwargs?.sources ?? [],
-      };
-    });
+      }));
 
     return Response.json({
       threadId,
