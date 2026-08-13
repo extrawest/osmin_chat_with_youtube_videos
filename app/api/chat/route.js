@@ -1,6 +1,6 @@
 import { HumanMessage } from "@langchain/core/messages";
 import { appGraph } from "@/lib/graph/graph";
-import { textOf } from "@/lib/graph/messages";
+import { textOf } from "@/utils/messages";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
