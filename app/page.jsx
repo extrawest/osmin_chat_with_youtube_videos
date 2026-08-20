@@ -3,6 +3,7 @@
 import { Layout, Typography, Input, Button, Space } from "antd";
 import ChatPanel from "@/components/ChatPanel";
 import { useVideo } from "@/hooks/useVideo";
+import { getSessionId } from "@/lib/session";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -21,8 +22,8 @@ export default function Home() {
             <Input.Search
               placeholder="https://www.youtube.com/watch?v=..."
               size="large"
-              loading={loading} 
-              onSearch={load}
+              loading={loading}
+              onSearch={(url) => load(url, getSessionId())}
               style={{ marginTop: 16 }}
             />
           </>

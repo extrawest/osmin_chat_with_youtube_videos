@@ -5,12 +5,19 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 export async function POST(request) {
-  let url, threadId;
+  let url, sessionId;
   try {
-    ({ url } = await request.json());
-    threadId = extractVideoId(url);
+    ({ url, sessionId } = await request.json());
   } catch (err) {
     return Response.json({ error: err.message || "Invalid request" }, { status: 400 });
+  }
+
+  let videoId, threadId;
+  try {
+    videoId = extractVideoId(url);
+    threadId = `${sessionId}_${videoId}`;
+  } catch (err) {
+    return Response.json({ error: err.message || "Invalid YouTube URL" }, { status: 400 });
   }
 
   const encoder = new TextEncoder();

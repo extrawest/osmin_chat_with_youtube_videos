@@ -7,14 +7,14 @@ export function useVideo() {
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  async function load(url) {
+  async function load(url, sessionId) {
     const clean = (url || "").trim();
     if (!clean || loading) return;
     setLoading(true);
 
     let ready = null;
     try {
-      await api.ingestVideo(clean, (delta) => {
+      await api.ingestVideo(clean, sessionId, (delta) => {
         if (delta.status === "ready") {
           ready = { threadId: delta.threadId, videoId: delta.videoId, title: delta.title };
         }
