@@ -8,6 +8,12 @@
 A fullstack RAG-powered application that enables users to input any YouTube video link (`youtube.com/watch?v=…`, `youtu.be/…`, `/shorts/…`) and chat naturally with its transcript using Google Gemini models, Pinecone cloud vector similarity search (3072 dimensions), and an automated Tavily Web Search tool fallback when cosine similarity is below **0.75**.
 
 ---
+## Demo
+
+
+
+https://github.com/user-attachments/assets/64495ca3-bc47-4687-be6e-809412dfa4fe
+
 
 ## 🌟 Key Features
 
